@@ -24,14 +24,22 @@ graph = {
 visited = set()
 
 def dfs(visited, graph, node):
+
     if node not in visited:
+    
         print(node, end=" ")   # Process the node
+        
         visited.add(node)      # Mark as visited
+        
         for neighbor in graph[node]:
+        
             dfs(visited, graph, neighbor)
+            
 
 print("Depth First Search starting from node A:")
+
 dfs(visited, graph, 'A')
+
 
 
 ### Output:
