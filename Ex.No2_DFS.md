@@ -12,39 +12,38 @@ To write a python program to implement Depth first Search.
 6. Call the dfs function by passing arguments visited, graph and starting node.
 7. Stop the program.
 ### Program:
+```
 graph = {
-    'A': ['B', 'C'],
-    'B': ['D', 'E'],
-    'C': ['F'],
-    'D': [],
-    'E': ['F'],
-    'F': []
+    "1": ["2", "3"],
+    "2": ["4", "5"],
+    "3": ["6", "7"],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
 }
 
-visited = set()
+visited = []
 
-def dfs(visited, graph, node):
 
-    if node not in visited:
-    
-        print(node, end=" ")   # Process the node
-        
-        visited.add(node)      # Mark as visited
-        
-        for neighbor in graph[node]:
-        
-            dfs(visited, graph, neighbor)
-            
+def dfs(start):
+    visited.append(start)
+    print(start, end="->")
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(neighbour)
+            visited.append(neighbour)
 
-print("Depth First Search starting from node A:")
 
-dfs(visited, graph, 'A')
+dfs("1")
+```
 
 
 
 ### Output:
-Depth First Search starting from node A:
-A B D E F C
+
+<img width="501" height="198" alt="image" src="https://github.com/user-attachments/assets/13a8e181-2d7b-4f21-be0d-80f721acb7ef" />
+
 
 
 ### Result:
