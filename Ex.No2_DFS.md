@@ -1,6 +1,6 @@
 # Ex.No: 2  Implementation of Depth First Search
-### DATE:                                                                            
-### REGISTER NUMBER : 
+### DATE: 26-08-2025                                                                        
+### REGISTER NUMBER : 212223060276
 ### AIM: 
 To write a python program to implement Depth first Search. 
 ### Algorithm:
@@ -12,20 +12,31 @@ To write a python program to implement Depth first Search.
 6. Call the dfs function by passing arguments visited, graph and starting node.
 7. Stop the program.
 ### Program:
+graph = {
+    "1": ["2", "3"],
+    "2": ["4", "5"],
+    "3": ["6", "7"],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+}
+
+visited = []
 
 
+def dfs(start):
+    visited.append(start)
+    print(start, end="->")
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(neighbour)
+            visited.append(neighbour)
 
 
-
-
-
-
-
-
+dfs("1")
 
 ### Output:
-
-
-
+1->2->4->5->3->6->7->
 ### Result:
 Thus the depth first search order was found sucessfully.
