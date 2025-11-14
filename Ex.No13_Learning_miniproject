@@ -1,15 +1,103 @@
-# Ex.No: 10 Learning – Use Supervised Learning  
-### DATE:                                                                            
-### REGISTER NUMBER : 
+# AI-MINI-PROJECT
+# Ex.No: 13 Learning – Use Supervised Learning  
+### DATE:28/10/2025                                                                            
+### REGISTER NUMBER : 212223040177
 ### AIM: 
-To write a program to train the classifier for -----------------.
+To write a program to train the classifier for electric car performance and battery dataset
 ###  Algorithm:
+1.Start
 
+
+2.Load the dataset
+
+
+3.Create target variable
+
+
+4.Select useful futures
+
+
+5.encode categorical data
+
+
+6.Split the dataset
+
+
+7.Normalise data
+
+
+8.Train the classifier
+
+
+9.Evaluate the model
+
+
+10.Stop
 ### Program:
+```
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
+# Load dataset
+data = pd.read_csv("/mnt/data/electric_vehicles_spec_2025.csv.csv")
+
+def categorize_performance(row):
+    if row['top_speed_kmh'] >= 200 and row['acceleration_0_100_s'] <= 5.0:
+        return 'High'
+    elif row['top_speed_kmh'] >= 160 and row['acceleration_0_100_s'] <= 7.0:
+        return 'Medium'
+    else:
+        return 'Low'
+
+data['performance_class'] = data.apply(categorize_performance, axis=1)
+
+print("Class distribution:")
+print(data['performance_class'].value_counts())
+
+features = [
+    'top_speed_kmh', 'battery_capacity_kWh', 'torque_nm',
+    'efficiency_wh_per_km', 'range_km', 'acceleration_0_100_s',
+    'seats', 'drivetrain', 'segment', 'car_body_type'
+]
+
+df = data[features + ['performance_class']].dropna()
+
+label_encoders = {}
+for col in ['drivetrain', 'segment', 'car_body_type']:
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col])
+    label_encoders[col] = le
+
+X = df.drop('performance_class', axis=1)
+y = df['performance_class']
+
+# Encode target
+target_encoder = LabelEncoder()
+y = target_encoder.fit_transform(y)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+model = RandomForestClassifier(n_estimators=150, random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+print("\nModel Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=target_encoder.classes_))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+
+```
 
 ### Output:
-
+<img width="626" height="96" alt="Screenshot 2025-10-28 081917" src="https://github.com/user-attachments/assets/9201ab95-81a8-4c86-a520-52e07056f007" />
+<img width="606" height="429" alt="Screenshot 2025-10-28 081941" src="https://github.com/user-attachments/assets/4be9fb35-73c4-4cfc-9034-43a1ce35168b" />
 
 ### Result:
 Thus the system was trained successfully and the prediction was carried out.
